@@ -1,0 +1,151 @@
+对于每个函数的帮助资料都应该详细阅读：
+a)简要说明：能够快速了解函数的功能；
+b)参数：每一个参数的功能都应该了解它的含义，并用不同种代入进行测试；
+c)返回值：返回值对于程序的开发往往有很微妙影响，应该注意了解其含义；
+d）备注（Remark）：提供最详细和全面的说明。
+e）样例（Sample）：演示代码能最快地让程序员掌握这个函数的用法。
+（有些函数必须是集群在一起联合使用才有作用）
+
+
+1、Windows资源管理：
+a)资源的种类：图标、光标、对话框
+b)程序图标一般跟ID最小的图标一致（resource.h）；
+
+2、对话框资源属性：
+a)扩展属性：（Extended Style）
+Accept Files：支持拖放
+Disable：禁用或可用
+ClientEdge：深下陷风格
+StaticEdge：浅下陷
+
+b)基础风格：
+Border：
+  NONE：没有任何边缘和标题栏等；（子页）
+  ReSizing：可以改变大小：
+  对话框边框：不可改变大小
+Caption：设置文字
+Style：Popup弹出式，Child（子页）
+Title：标题栏是否显示
+3、编辑控件的风格：
+Disable与ReadOnly：完全不可用，不可编辑
+WantReturn：按回车直接换行（否则：按Ctrl+回车换行）
+NoHide Selectoin：当焦点离开时还能显示选中文字
+Align Text：对齐文字（左 中 右）
+Tab Stop：Tab停顿位置
+
+2、Windows 输入输出：
+WM_COMMAND：来自于菜单项、按钮控件或。者快捷键等等
+
+
+1、MFC的动态链接和静态链接：
+a)在使用MFC应用程序向导新建工程时，选择“As a statically linked library”这个选项会编译器把MFC类库代码编译到执行文件内部；
+b)选择“As a shared DLL”使用系统内有共享的MFC动态库。前者编译出来的虽然尺寸较大，但是不需要系统提供动态库支持更加安全。在各个软件公司内一般要求使用静态链接，本书也统一要求新建MFC工程时都使用静态链接方式。
+2、API和MFC的关系：
+API（Application Programming Interface）：应用程序编程接口，是由操作系统提供给开发者的C语言格式的全局函数。第三节用到的GetDlgItemInt和SetDlgItemInt函数就是API函数，这些函数是与对象无关的C格式函数。Win32是面向API的编程平台，操作系统提供的API数量相当庞大，而且没有分类难于组织和记忆。
+MFC（Microsoft Fundation Classes）：微软的基础类库，这个类库分类封装了大部分Windows API，便于开发人员分类了解类库函数功能。学习过C++封装原理都知道，没有封装类的函数接口无论功能有多么强大，但是对于开发者来说都是难于使用和难于记忆的。就如同没有机箱和按钮的电视机，选台或调节音量就得到电视机主板上去找接口一样。封装类就就如同为电视机安装上机箱和按钮而且还有遥控器，选台调节音量操作都非常方便。
+
+
+面试题：
+
+__cdecl ：是C Declaration的缩写（declaration，声明），表示C语言默认的函数调用方法：
+a)所有参数从右到左依次入栈，
+b)这些参数由调用者清除，称为手动清栈。
+(被调用函数不会要求调用者传递多少参数，调用者传递过多或者过少的参数，甚至完全不同的参数都不会产生编译阶段的错误。)
+_stdcall ：是StandardCall的缩写，是C++的标准调用方式：
+a)所有参数从右到左依次入栈，如果是调用类成员的话，最后一个入栈的是this指针。
+b)这些堆栈中的参数由被调用的函数在返回后清除，使用的指令是 retnX，X表示参数占用的字节数，
+CPU在ret之后自动弹出X个字节的堆栈空间。称为自动清栈。
+函数在编译的时候就必须确定参数个数，并且调用者必须严格的控制参数的生成，不能多，不能少，否则返回后会出错。
+PASCAL 是Pascal语言的函数调用方式，也可以在C/C++中使用，
+a)参数压栈顺序与前两者相反。（由左向右）
+b)返回时的清栈方式与_stdcall相同。（被调用清理空间）
+
+
+
+附录：WindowsAPI
+
+MessageBox：消息显示
+FindWindow：只查找主窗口，不能查找子窗口
+DialogBox：显示有输入输出功能的窗口
+EndDialog：关闭模式对话框(Modal Dialog)
+GetDlgItemInt：通过一个窗口内的控件上的文字获得一个数字。
+SetDlgItemInt：通过一个窗口内的控件上的文字设置一个数字
+
+//4字节合并
+#define MAKELONG(a, b)  ((LONG)(((WORD)(((DWORD_PTR)(a)) & 0xffff)) | ((DWORD)((WORD)(((DWORD_PTR)(b)) & 0xffff))) << 16))
+
+//4字节拆分
+#define LOWORD(l)         ((WORD)(((DWORD_PTR)(l)) & 0xffff))
+#define HIWORD(l)         ((WORD)((((DWORD_PTR)(l)) >> 16) & 0xffff))
+
+//2字节合并
+#define MAKEWORD(a, b)  ((WORD)(((BYTE)(((DWORD_PTR)(a)) & 0xff)) | ((WORD)((BYTE)(((DWORD_PTR)(b)) & 0xff))) << 8))
+//拆分：
+#define LOBYTE(w)           ((BYTE)(((DWORD_PTR)(w)) & 0xff))
+#define HIBYTE(w)           ((BYTE)((((DWORD_PTR)(w)) >> 8) & 0xff))
+
+WindowsMessage：
+空消息： 	WM_NULL                         0x0000
+创建时（一次）：WM_CREATE                       0x0001
+摧毁时（一次）：WM_DESTROY                      0x0002
+移动： WM_MOVE                         0x0003
+大小： WM_SIZE                         0x0005
+
+切换： WM_ACTIVATE                     0x0006
+
+
+对话框专用初始化消息（一次）： WM_INITDIALOG            0x0110
+用户命令： WM_COMMAND                      		0x0111
+系统命令（最大、小化，关闭等）： WM_SYSCOMMAND		0x0112
+定时器（SetTimer）： WM_TIMER                        	0x0113
+横向滚动： WM_HSCROLL                      		0x0114
+纵向滚动： WM_VSCROLL                      		0x0115
+/*
+ * WM_ACTIVATE state values
+ */
+#define     WA_INACTIVE     0
+#define     WA_ACTIVE       1
+#define     WA_CLICKACTIVE  2
+
+得到焦点： 		WM_SETFOCUS                     0x0007
+失去焦点：		 WM_KILLFOCUS                    0x0008
+被激活或禁用： 		WM_ENABLE                       0x000A
+被设置刷新或不刷新： WM_SETREDRAW                    0x000B
+被设置文字： WM_SETTEXT                      0x000C
+被获取文字 WM_GETTEXT                      0x000D
+被获取文字长度： WM_GETTEXTLENGTH                0x000E
+绘图消息： WM_PAINT                        0x000F
+关闭消息： WM_CLOSE                        0x0010
+程序退出： WM_QUIT                         0x0012
+
+
+
+光标移动消息： WM_MOUSEMOVE                    0x0200
+左键按下消息： WM_LBUTTONDOWN                  0x0201
+左键释放消息： WM_LBUTTONUP                    0x0202
+左键双击消息： WM_LBUTTONDBLCLK                0x0203
+左键按下消息： WM_RBUTTONDOWN                  0x0204
+左键释放消息： WM_RBUTTONUP                    0x0205
+左键双击消息： WM_RBUTTONDBLCLK                0x0206
+#define WM_MBUTTONDOWN                  0x0207
+#define WM_MBUTTONUP                    0x0208
+#define WM_MBUTTONDBLCLK                0x0209
+
+#define WM_ERASEBKGND                   0x0014
+#define WM_SYSCOLORCHANGE               0x0015
+#define WM_SHOWWINDOW                   0x0018
+#define WM_WININICHANGE                 0x001A
+#if(WINVER >= 0x0400)
+#define WM_SETTINGCHANGE                WM_WININICHANGE
+#endif /* WINVER >= 0x0400 */
+
+
+#define WM_DEVMODECHANGE                0x001B
+#define WM_ACTIVATEAPP                  0x001C
+#define WM_FONTCHANGE                   0x001D
+#define WM_TIMECHANGE                   0x001E
+#define WM_CANCELMODE                   0x001F
+#define WM_SETCURSOR                    0x0020
+#define WM_MOUSEACTIVATE                0x0021
+#define WM_CHILDACTIVATE                0x0022
+#define WM_QUEUESYNC                    0x0023

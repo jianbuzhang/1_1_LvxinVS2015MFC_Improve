@@ -1,0 +1,28 @@
+This function translates the text of a specified control in a dialog box into an integer value.
+
+这个函数将指定控件（control）的文字翻译成一个整型数值。
+
+Dialog item identifier that specifies the control whose text is to be translated.
+对话框中一个项的ID，指定的控件的文字将被翻译。
+
+[out] Long pointer to a Boolean variable that receives a function success/failure value (TRUE indicates success, FALSE indicates failure).
+一个指向BOOL型变量的指针，返回函数执行是否成功。
+
+This parameter is optional: it can be NULL. In that case, the function returns no information about success or failure.
+
+这个参数是可以选的，这个时候你代入NULL。
+这种情况下，这个函数将不返回关于成功和失败的任何信息。
+
+[in] Boolean that specifies whether the function should examine the text for a minus sign at the beginning and return a signed integer value if it finds one.
+ TRUE specifies that this should be done, FALSE that it should not.
+
+WM_LBUTTONDOWN:
+low-order word 是将4个字节的变量拆分成高低各2个字节
+low-order byte 是将2个字节的变量拆分成高低各1个字节
+
+lParam总共4个字节：
+The low-order word specifies the x-coordinate of the cursor. The coordinate is relative to the upper-left corner of the client area.
+光标的x坐标： x-coordinate of the cursor
+The high-order word specifies the y-coordinate of the cursor. The coordinate is relative to the upper-left corner of the client area.
+光标的y坐标： y-coordinate of the cursor
+
