@@ -1,0 +1,96 @@
+每个同学每天在帮助文档中找出5-10个自己不熟悉的英文单词，用翻译软件翻译好存放在生词表里。
+（每日提交）
+
+
+测试题：
+1、对照教材第二章，开发一个带列表控件的软件（包括增删改等功能）；
+
+上机题：
+1、认真研究CDialog类的相关成员函数，用MFC来开发带有登录功能的程序；
+
+2、建立一个基于对话框的MFC工程，在窗口上显示当天的日期和星期几的文字；
+请思考如何实时显示当前的时间（时分秒），例如：12:05:32。
+（使用MFC系统自带的CTime类或COleDateTime类获取和转换时间）
+（相关的函数和消息是：SetTimer和WM_TIMER）
+
+3、模拟MFC的CRect类封装一个自己的CRectLx类由系统RECT类派生。
+class CRectLx : public tagRECT
+{
+public:
+	// uninitialized rectangle
+	CRectLx();
+	// from left, top, right, and bottom
+	CRectLx(int l, int t, int r, int b);
+	// copy constructor
+	CRectLx(const RECT& srCRectLx);
+	// from a pointer to another rect
+	CRectLx(LPCRECT lpSrcRect);
+	// from a point and size
+	CRectLx(POINT point, SIZE size);
+	// from two points
+	CRectLx(POINT topLeft, POINT bottomRight);
+
+// Attributes (in addition to RECT members)
+
+	// retrieves the width
+	int Width() const;
+	// returns the height
+	int Height() const;
+	// returns the size
+	CSize Size() const;
+	// reference to the top-left point
+	CPoint& TopLeft();
+	// reference to the bottom-right point
+	CPoint& BottomRight();
+	// const reference to the top-left point
+	const CPoint& TopLeft() const;
+	// const reference to the bottom-right point
+	const CPoint& BottomRight() const;
+	// the geometric center point of the rectangle
+	CPoint CenterPoint() const;
+	// swap the left and right
+	void SwapLeftRight();
+	static void SwapLeftRight(LPRECT lpRect);
+
+	// convert between CRectLx and LPRECT/LPCRECT (no need for &)
+	operator LPRECT();
+	operator LPCRECT() const;
+
+	// returns TRUE if rectangle has no area
+	BOOL IsRectEmpty() const;
+	// returns TRUE if rectangle is at (0,0) and has no area
+	BOOL IsRectNull() const;
+	// returns TRUE if point is within rectangle
+	BOOL PtInRect(POINT point) const;
+
+	// set rectangle from left, top, right, and bottom
+	void SetRect(int x1, int y1, int x2, int y2);
+	void SetRect(POINT topLeft, POINT bottomRight);
+	// empty the rectangle
+	void SetRectEmpty();
+	
+	// inflate rectangle's width and height without
+	// moving its top or left
+	void InflateRect(int x, int y);
+	void InflateRect(SIZE size);
+	void InflateRect(LPCRECT lpRect);
+	void InflateRect(int l, int t, int r, int b);
+	// deflate the rectangle's width and height without
+	// moving its top or left
+	void DeflateRect(int x, int y);
+	void DeflateRect(SIZE size);
+	void DeflateRect(LPCRECT lpRect);
+	void DeflateRect(int l, int t, int r, int b);
+
+	// translate the rectangle by moving its top and left
+	void OffsetRect(int x, int y);
+	void OffsetRect(SIZE size);
+	void OffsetRect(POINT point);
+	void NormalizeRect();
+// Additional Operations
+	void operator=(const RECT& srcRect);
+	BOOL operator==(const RECT& rect) const;
+	BOOL operator!=(const RECT& rect) const;
+
+};
+把当日提纲做成填空题，要求每一行都有至少一个空，用WORD文档提交2份（题目和答案）。。

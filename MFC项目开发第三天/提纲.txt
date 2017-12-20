@@ -1,0 +1,33 @@
+一、数字(浮点数或整数)转为文字：
+a)如果转为窄字符字符串，sprintf函数很好用，浮点数都没问题；
+b)如果转为宽字符字符串，在MFC中CString::Format就可以实现了；
+c)wsprintf是Windows API，不支持浮点型格式输出；
+d)如果转为宽字符字符串，在WIN32中可以先用sprintf转为窄字符字符串；
+再调用MultiByteToWideChar的API函数转为宽字符字符串。
+e)_stprintf是微软近年来新增的API用于直接转换浮点数或整数到宽字符字符串。
+
+二、Unicode与多字符集字符串互相转换：
+a)MultiByteToWideChar：是将UNICODE转为多字符集字符串；
+b)WideCharToMultiByte：是将多字符集转为UNICODE字符串；
+c)_bstr_t(comutil.h)类可以随时存入和取出两种字符串；
+
+三、MFC的组成：
+a)必须有一个CWinApp的派生类；
+b)必须用派生类在全局定义一个对象theApp;
+c)在派生类中必须重写InitInstance虚函数；
+d)MFC程序就用CWinApp派生类中的InitInstance虚函数作为主函数；
+
+四、MFC对话框程序的消息处理（消息映射机制）
+a)为一个对话框模板建立一个与之关联的CDialog或CDialogEx派生类；
+b)在需要启动对话框用派生类定义一个对象，在用对象调用DoModal成员函数；
+c)MFC如果要处理一个消息，只要打开类向导，选择在下拉中这个对话框类；
+d)在消息列表中就可以选择你需要的消息，双击即可建立消息映射函数；
+e)消息映射函数就是：一个消息（和一个窗口）对应一个函数的地址
+
+五、MFC基础变量类型：
+a)CPoint(POINT派生类)：记录和更换x,y坐标；例如：CPoint pt(32,52);
+b)CSize（SIZE派生类）：记录和更换cx,cy高宽；例如：CSize pt(32,52);
+c)CRect（RECT派生类）：记录和更换left,right,top,bottom 高宽；例如：CSize pt(32,52);
+d)CString：记录和变更字符串的类
+e)一些数据集合类：例如：CList CArray CMap等等；
+

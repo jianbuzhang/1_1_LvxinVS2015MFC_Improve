@@ -1,0 +1,33 @@
+GetDlgItemText
+This function retrieves the title or text associated with a control in a dialog box.
+这个函数返回与对话框内的一个控件关联的（主窗口）标题或者（子窗口）文字。
+lpString
+Long pointer to the buffer to receive the title or text.
+用来接收标题或者文字的，指向一个缓冲区的指针变量。
+
+[in] Specifies the maximum length, in charactor, of the string to be copied to the buffer pointed to by lpString. If the length of the string exceeds the limit, the string is truncated.
+
+The number of characters copied to the buffer, not including the terminating null character, indicates success.
+ Zero indicates failure. To get extended error information, call GetLastError.
+
+返回被拷贝到缓冲区的字符（一个字符可能是2个字节）个数，不包括0结尾的字符，代表成功了。
+返回0代表失败了，如果要获取额外的错误信息，请调用GetLastError函数。
+
+GetSystemMetrics ：
+This function retrieves the dimensions (widths and heights) of Windows display elements and
+ system configuration settings. 
+获取一些窗口元素的高宽，或者系统设置的高宽。
+All dimensions retrieved by GetSystemMetrics are in pixels.
+ GetSystemMetrics返回的所有的空间都是用像素做单位
+
+MoveWindow：
+This function changes the position and dimensions of the specified window. For a top-level window, the position and dimensions are relative to the upper-left corner of the screen.
+如是移动（顶层）主窗口
+ For a child window, they are relative to the upper-left corner of the parent window's client area.
+如是移动子窗口，急于父窗口的客户区坐标系。
+
+
+coordinates ：坐标，坐标系。
+screen coordinates :
+top-level window：
+client area：客户区区域
